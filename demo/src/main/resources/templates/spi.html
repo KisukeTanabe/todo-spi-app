@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>SPI問題</title>
+<style>
+body {
+    background-color: #f0f0f0;
+    font-family: sans-serif;
+}
+
+.container {
+    background: white;
+    margin: 20px;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+h1 {
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+
+.problem-box {
+    background-color: #eaf5fc;
+    border-left: 6px solid #39a0d8;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.answer-box {
+    background-color: #f8f8f8;
+    border-left: 6px solid #39a0d8;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.btn {
+    background-color: #39a0d8;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #2f8bbb;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    background-color: #39a0d8;
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+}
+
+</style>
+</head>
+
+<body>
+<div class="container">
+    <h1>SPI練習問題</h1>
+<div class="problem-box">
+    <h3>問題</h3>
+    <p th:text="${question}"></p>
+</div>
+
+<button class="btn" onclick="showAnswer()">
+
+答えを見る
+
+</button>
+
+<div id="answerArea" class="answer-box" style="display:none;">
+    <h3>答え</h3>
+    <p th:text="${answer}"></p>
+    <h3>解説</h3>
+    <p th:text="${explanation}"></p>
+</div>
+
+<script>
+
+function showAnswer() {document.getElementById("answerArea").style.display = "block";}
+
+</script>
+
+<a href="/">
+    /メニューへ戻る
+</a>
+</body>
+
+</html>

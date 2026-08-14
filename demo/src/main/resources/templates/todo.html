@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>ToDo一覧</title>
+<style>
+body {
+    background-color: #f0f0f0;
+    font-family: sans-serif;
+}
+
+
+.container {
+    background: white;
+    margin: 20px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+h2 {
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+.answer-box {
+    background-color: #f8f8f8;
+    border-left: 6px solid #39a0d8;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.btn {
+    background-color: #39a0d8;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #2f8bbb;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    background-color: #39a0d8;
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+}
+.completed{
+    color: gray;
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+input {
+    padding: 8px;
+    margin-top: 5px;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>ToDo一覧</h2>
+
+<form action="/todo/add" method="post">
+    タスク名
+    <input type="text"
+    name="task">
+
+<br><br>
+
+締切日時
+
+<input type="datetime-local" name="deadline">
+
+<br><br>
+
+<button type="submit">追加</button>
+
+</form>
+
+<hr>
+
+<ul>
+
+<li th:each="todo , stat : ${todos}" class="answer-box">
+
+<strong th:text="${todo.task}"
+    th:classappend="${todo.completed} ? ' completed' : ''">
+</strong>
+
+<br>
+
+締切：
+
+<span th:text="${todo.deadline}"></span>
+
+<br><br>
+<form action="/todo/complete" method="post">
+
+<input type="hidden"
+name="index"
+th:value="${stat.index}">
+
+<button type="submit" class="btn">
+
+完了
+
+</button>
+
+</form>
+
+<form action="/todo/delete" method="post">
+
+<input
+type="hidden"
+name="index"
+th:value="${stat.index}">
+
+<button type="submit" class="btn">
+
+削除
+
+</button>
+
+</form>
+</ul>
+
+</li>
+
+<a href="/">
+    /メニューへ戻る
+</a>
+
+</div>
+
+</body>
+
+</html>

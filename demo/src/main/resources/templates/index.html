@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>応援メッセージと時間帯判定</title>
+<head>
+
+<style>
+
+body{
+    font-family: sans-serif;
+    background-color:#f5f5f5;
+    margin:30px;
+}
+
+.container{
+    background-color:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.2);
+}
+
+.notice{
+    background-color:#e8f6ff;
+    border-left:5px solid #2da3d7;
+    padding:10px;
+    margin-bottom:20px;
+}
+
+.menu a{
+    display:inline-block;
+    background-color:#2da3d7;
+    color:white;
+    text-decoration:none;
+    padding:10px 20px;
+    margin-right:10px;
+    border-radius:5px;
+}
+
+.menu a:hover{
+    background-color:#198fc0;
+}
+
+.todo{
+    background-color:#fafafa;
+    border:1px solid #ddd;
+    padding:10px;
+    margin-bottom:10px;
+    border-radius:5px
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 th:text="${greeting}"></h1>
+
+<h2>今日の応援メッセージ</h2>
+
+<p th:text="${message}"></p>
+
+<div class="notice">
+
+<h3 style="color:red">お知らせ</h3>
+
+<div th:each="todo : ${todos}" class="todo">
+
+<b th:text="${todo.task}"></b>
+
+<br>
+
+締切：
+
+<span th:text="${#temporals.format(todo.deadline,'yyyy/MM/dd HH:mm')}"></span>
+
+</div>
+
+</div>
+
+<h4>メニュー</h4>
+
+<div class="menu">
+
+<li>
+    <a href="spi">
+        SPI問題
+    </a>
+</li覧</a>
+</li>
+
+<li>
+<a href="todo">
+    /ToDo一覧
+</a>
+
+</div>
+
+</div>
+
+</body>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
