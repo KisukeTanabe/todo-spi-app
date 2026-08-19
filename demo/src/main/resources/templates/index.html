@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 
+<!--
+就職活動支援Webアプリ機能
+1. 応援メッセージ表示
+2. 時間帯別挨拶表示
+3. SPI問題画面への遷移
+4. Todo一覧表示
+5. 締切間近タスク通知
+-->
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -7,7 +15,6 @@
 <meta charset="UTF-8">
 
 <title>応援メッセージと時間帯判定</title>
-<head>
 
 <style>
 
@@ -50,28 +57,35 @@ body{
     border:1px solid #ddd;
     padding:10px;
     margin-bottom:10px;
-    border-radius:5px
+    border-radius:5px;
 }
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
+<!-- 時間帯に応じた挨拶表示 -->
 <h1 th:text="${greeting}"></h1>
 
-<h2>今日の応援メッセージ</h2>
 
+<!-- ランダム応援メッセージ -->
+<h2>今日の応援メッセージ</h2>
 <p th:text="${message}"></p>
 
+<!-- 締切が近いTodoを表示 -->
 <div class="notice">
 
 <h3 style="color:red">お知らせ</h3>
 
+
+<!-- Todo一覧表示 -->
 <div th:each="todo : ${todos}" class="todo">
 
 <b th:text="${todo.task}"></b>
+
 
 <br>
 
@@ -81,29 +95,27 @@ body{
 
 </div>
 
+<div th:if="${notice != ''}"th:utext="${notice}">
 </div>
 
+<!-- メニュー -->
 <h4>メニュー</h4>
 
 <div class="menu">
-
-<li>
-    <a href="spi">
-        SPI問題
-    </a>
-</li覧</a>
-</li>
-
-<li>
-<a href="todo">
-    /ToDo一覧
-</a>
-
+    <ul>
+        <li>
+            <a href="/spi">
+                SPI問題
+            </a>
+        </li>
+        <li>
+            <a href="/todo">
+                /ToDo一覧
+            </a>
+        </li>
+    </ul>
 </div>
 
-</div>
-
-</body>
 </body>
 
 </html>

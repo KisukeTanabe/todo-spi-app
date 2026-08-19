@@ -69,11 +69,16 @@ h1 {
 <body>
 <div class="container">
     <h1>SPI練習問題</h1>
+
+    <!-- 問題表示エリア -->
 <div class="problem-box">
     <h3>問題</h3>
+
+    <!-- 解答・解説表示エリア -->
     <p th:text="${question}"></p>
 </div>
 
+<!-- 解答表示ボタン -->
 <button class="btn" onclick="showAnswer()">
 
 答えを見る
@@ -89,13 +94,18 @@ h1 {
 
 <script>
 
-function showAnswer() {document.getElementById("answerArea").style.display = "block";}
+// 答えと解説を表示する
+function showAnswer() 
+{
+    document.getElementById("answerArea").style.display = "block";
+}
 
 </script>
 
 <a href="/">
-    /メニューへ戻る
+    メニューへ戻る
 </a>
+</div>
 </body>
 
 </html>
