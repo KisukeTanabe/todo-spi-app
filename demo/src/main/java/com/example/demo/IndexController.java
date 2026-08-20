@@ -1,15 +1,23 @@
 package com.example.demo;
 
 import java.util.Random;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 /*
 * 就職活動支援Webアプリ
@@ -178,6 +186,22 @@ public String addTodo(
         // Todoをリストに追加
         todoList.add(new Todo(task, LocalDateTime.parse(deadline)));
         System.out.println("件数：" + todoList.size());
+
+        // Todo一覧をoutput.txtに保存
+        try (PrintWriter pw = new PrintWriter(new FileWriter("demo/output.txt"))) {
+
+            // Todoを1件ずつ書き込む
+            for (Todo todo : todoList) {
+                pw.println("タスク：" + todo.getTask());
+                pw.println("締切：" + todo.getDeadline());
+                pw.println("完了：" + todo.isCompleted());
+                pw.println("--------------------");
+            }
+        } catch (IOException e) {
+
+            // エラー内容を表示
+            e.printStackTrace();
+        }
 
         return "redirect:/todo";
     }

@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.renshu;
 
 public class TestController {
 

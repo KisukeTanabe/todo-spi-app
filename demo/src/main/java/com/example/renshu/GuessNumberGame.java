@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.renshu;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
