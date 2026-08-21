@@ -1,0 +1,3 @@
+<div>
+<img th:src="@{/images/outputresult.png}" width/images/spi-page.png:src="@{/imagesg}
+</div>
