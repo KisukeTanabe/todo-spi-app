@@ -80,7 +80,7 @@ String notice = "";
 LocalDateTime nowDate = LocalDateTime.now();
 
 for(Todo todo : todoList){
-    if(nowDate.isAfter(todo.getDeadline().minusHours(1))&& nowDate.isBefore(todo.getDeadline().plusHours(23))) 
+    if (!todo.isCompleted() && nowDate.isAfter(todo.getDeadline().minusHours(1))&& nowDate.isBefore(todo.getDeadline().plusHours(23))) 
     {
         notice += todo.getTask() + " の締切が近づいています！<br>";
     }

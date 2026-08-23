@@ -14,6 +14,9 @@
 
 <meta charset="UTF-8">
 
+<link rel="stylesheet" th:href="@{/css/style.css}"></link>
+
+
 <title>応援メッセージと時間帯判定</title>
 
 <style>
@@ -63,17 +66,34 @@ body{
 
 </head>
 
+
 <body>
 
-<div class="container">
+<div class="top-area">
+    <!-- 左側 -->
 
-<!-- 時間帯に応じた挨拶表示 -->
-<h1 th:text="${greeting}"></h1>
+    <div class="message-area">
+         <!-- ランダム応援メッセージ -->
+     <h2>今日の応援メッセージ:</h2>
+     <p th:text="${message}"></p>
+    </div>
+   
+    
+     <!-- 右側 -->
+
+     <!-- 時間帯に応じた挨拶表示 -->
+      <div class="character-area">
+        <div class="greeting-bubble">
+            <span th:text="${greeting}"></span>
+        </div>
+        <div class="character">
+            😊
+        </div>
+      </div>
+</div>
 
 
-<!-- ランダム応援メッセージ -->
-<h2>今日の応援メッセージ</h2>
-<p th:text="${message}"></p>
+
 
 <!-- 締切が近いTodoを表示 -->
 <div class="notice">

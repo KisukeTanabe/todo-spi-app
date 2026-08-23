@@ -1,0 +1,92 @@
+/* 吹き出し */
+
+.greeting-bubble {
+    position: relative;
+    display: inline-block;
+    background: #4fc3f7;
+    color: white;
+    padding: 20px 30px;
+    border-radius: 20px;
+    /* 影 */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    
+    /* アニメーション */
+    animation: floatUp 2s ease-out,
+    floating 3s ease-in-out infinite;
+}
+
+/* 吹き出しのしっぽ */
+.greeting-bubble::after {
+    content: "";
+    position: absolute;
+    
+    left: 50%;
+    transform: translateX(-50%);
+
+    bottom: -15px;
+    border-width: 15px 15px 0;
+    border-style: solid;
+    border-color: #4fc3f7 transparent transparent;
+}
+
+.top-area{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    width:100%;
+}
+
+.message-area{
+    text-align:left;
+}
+
+message-area h2{
+    margin-bottom:10px;
+    font-size: 80px;
+}
+
+.message-area p{
+    margin-top:0;
+    margin-bottom:10px;
+    font-size: 65px;
+    font-weight: bold;
+}
+
+.character-area{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.character{
+    font-size:50px;
+    margin-top:10px;
+    animation: floating 3s ease-in-out infinite;
+}
+
+/* 登場アニメーション */
+@keyframes floatUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }to 
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ふわふわ */
+@keyframes floating {
+    0% {
+        transform: translateY(0px);
+    }50% 
+    {
+        transform: translateY(-8px);
+    }100% 
+    {
+        transform: translateY(0px);
+    }
+}
+
+
