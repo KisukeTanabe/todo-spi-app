@@ -16,7 +16,6 @@
 
 <link rel="stylesheet" th:href="@{/css/style.css}"></link>
 
-
 <title>応援メッセージと時間帯判定</title>
 
 <style>
@@ -69,27 +68,39 @@ body{
 
 <body>
 
+<h1>ToDo管理・SPI学習アプリ</h1>
+
 <div class="top-area">
     <!-- 左側 -->
 
-    <div class="message-area">
-         <!-- ランダム応援メッセージ -->
-     <h2>今日の応援メッセージ:</h2>
-     <p th:text="${message}"></p>
-    </div>
-   
-    
-     <!-- 右側 -->
+    <!-- 時間帯に応じた挨拶表示 -->
 
-     <!-- 時間帯に応じた挨拶表示 -->
-      <div class="character-area">
-        <div class="greeting-bubble">
+       <div class="character-area">
+        
+        <div class="message-area">
             <span th:text="${greeting}"></span>
+               <h2 th:if="${username != null}">
+                <span th:text="${username}"></span>さん
+            </h2>
+            <h3 th:if="${userNotice}">
+                [[${userNotice}]]
+            </h3>
         </div>
+
+       
+    <!-- 右側 -->
+
+     <!-- ランダム応援メッセージ -->
+    <div class="greeting-bubble">
+        <p th:text="${message}"></p>
+        </div>
+
         <div class="character">
             😊
         </div>
-      </div>
+        
+       </div>
+   
 </div>
 
 
@@ -125,7 +136,7 @@ body{
     <ul>
         <li>
             <a href="/spi">
-                SPI問題
+                /SPI問題
             </a>
         </li>
         <li>
@@ -133,6 +144,12 @@ body{
                 /ToDo一覧
             </a>
         </li>
+        <li>
+            <a href="/setting">
+                /ユーザー設定
+            </a>
+        </a>
+    </li>
     </ul>
 </div>
 

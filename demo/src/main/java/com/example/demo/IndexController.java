@@ -8,16 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalTime;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.PrintWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-
+import jakarta.servlet.http.HttpSession;
 
 /*
 * 就職活動支援Webアプリ
@@ -32,14 +28,18 @@ import java.io.IOException;
 * Spring Bootを使用して作成
 */
 
-/*DBをまだ習っていないのでListで実装しました*/
+/*DBを使い実装しました*/
 @Controller
 public class IndexController {
     // Todoを保存するリスト
-    private List<Todo> todoList = new ArrayList<>();
+    private final TodoRepository repository;
     // ランダム値生成用
 private final Random random = new Random();
-    
+
+public IndexController(TodoRepository repository) {
+this.repository = repository;
+}
+
 /**
 * トップページ表示
 * ・ランダム応援メッセージ表示
@@ -48,7 +48,7 @@ private final Random random = new Random();
 */
 @GetMapping("/")
 
-public String showMotivation(Model model) {
+public String showMotivation(Model model, HttpSession session) {
 
 String[] messages = {
     "頑張ろう！",
@@ -75,29 +75,46 @@ if (now.getHour() < 12) {
 }
 
 String notice = "";
+LocalDate lastSpiDate =(LocalDate) 
+session.getAttribute("lastSpiDate");
 
 // 締切24時間前〜締切1時間後のTodoを通知
 LocalDateTime nowDate = LocalDateTime.now();
 
-for(Todo todo : todoList){
-    if (!todo.isCompleted() && nowDate.isAfter(todo.getDeadline().minusHours(1))&& nowDate.isBefore(todo.getDeadline().plusHours(23))) 
+for(Todo todo : repository.findAll()){
+    if (!todo.isCompleted() && nowDate.isAfter(todo.getDeadline().minusHours(1))&& nowDate.isBefore(todo.getDeadline())) 
     {
-        notice += todo.getTask() + " の締切が近づいています！<br>";
+        notice += "【通知】"
+        + todo.getTask()
+        + " は締切まで1日です<br>";
     }
 }
 
+if (lastSpiDate != null &&
+    lastSpiDate.isBefore(LocalDate.now().minusDays(3))) {
+        notice += "【通知】SPI学習が3日間記録されていません<br>";
+    }
+
+session.setAttribute(
+    "lastSpiDate",
+    LocalDate.now());
+
 model.addAttribute("notice", notice);
 model.addAttribute("greeting", greeting);
-model.addAttribute("todos", todoList);
+model.addAttribute("todos", repository.findAll());
+model.addAttribute(
+    "userNotice",
+    session.getAttribute("notice"));
+model.addAttribute(
+    "username",
+    session.getAttribute("username"));
 
 return "index";
-
 }
-
 
 @GetMapping("/spi")
 
-public String showSpi(Model model) {
+public String showSpi(Model model, HttpSession session) {
     int type = random.nextInt(5);
     String question = "";
     String answer = "";
@@ -160,15 +177,14 @@ public String showSpi(Model model) {
                 
                 }
 
-
 /**
 * Todo一覧画面表示
 */
 @GetMapping("/todo")
 
 public String showTodo(Model model) {
-    System.out.println("件数=" + todoList.size());
-    model.addAttribute("todos", todoList);
+    System.out.println("件数=" + repository.findAll().size());
+    model.addAttribute("todos", repository.findAll());
 
     return "todo";
 }
@@ -184,24 +200,11 @@ public String addTodo(
         System.out.println("締切：" + deadline);
 
         // Todoをリストに追加
-        todoList.add(new Todo(task, LocalDateTime.parse(deadline)));
-        System.out.println("件数：" + todoList.size());
+        Todo todo =
+        new Todo(task, LocalDateTime.parse(deadline));
+        repository.save(todo);
+        System.out.println("件数：" + repository.findAll().size());
 
-        // Todo一覧をoutput.txtに保存
-        try (PrintWriter pw = new PrintWriter(new FileWriter("demo/output.txt"))) {
-
-            // Todoを1件ずつ書き込む
-            for (Todo todo : todoList) {
-                pw.println("タスク：" + todo.getTask());
-                pw.println("締切：" + todo.getDeadline());
-                pw.println("完了：" + todo.isCompleted());
-                pw.println("--------------------");
-            }
-        } catch (IOException e) {
-
-            // エラー内容を表示
-            e.printStackTrace();
-        }
 
         return "redirect:/todo";
     }
@@ -210,10 +213,18 @@ public String addTodo(
 * Todo完了処理
 */
 @PostMapping("/todo/complete")
-public String completeTodo(@RequestParam int index) {
-
+public String completeTodo(@RequestParam long id, HttpSession session) {
+    
     // 指定されたTodoを完了状態にする
-    todoList.get(index).setCompleted(true);
+    Todo todo = repository.findById(id).orElse(null);
+
+    if (todo != null) {
+        todo.setCompleted(true);
+        repository.save(todo);
+        session.setAttribute(
+            "notice",
+            "タスク完了おめでとうございます！");
+        }
 
     return "redirect:/todo";
 }
@@ -222,10 +233,10 @@ public String completeTodo(@RequestParam int index) {
 * Todo削除処理
 */
 @PostMapping("/todo/delete")
-public String deleteTodo(@RequestParam int index) {
+public String deleteTodo(@RequestParam long id) {
     
     // 指定されたTodoを削除
-    todoList.remove(index);
+    repository.deleteById(id);
 
     return "redirect:/todo";
 }

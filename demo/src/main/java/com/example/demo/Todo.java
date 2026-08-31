@@ -2,11 +2,22 @@ package com.example.demo;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 /**
 * Todoクラス
 * タスク名、締切日時、完了状態を管理する
 */
+
+@Entity
 public class Todo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     // タスク名
     private String task;
 
@@ -16,6 +27,9 @@ public class Todo {
     // 完了状態
     private boolean completed;
     
+    public Todo() {
+    }
+
     /**
     * コンストラクタ
     * Todo作成時は未完了(false)で初期化
@@ -24,6 +38,10 @@ public class Todo {
         this.task = task;
         this.deadline = deadline;
         this.completed = false;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     /**
