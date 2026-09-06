@@ -10,10 +10,14 @@ import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
+
+
 
 /*
 * 就職活動支援Webアプリ
@@ -31,13 +35,18 @@ import jakarta.servlet.http.HttpSession;
 /*DBを使い実装しました*/
 @Controller
 public class IndexController {
+    
     // Todoを保存するリスト
     private final TodoRepository repository;
+
+    private final UserRepository userRepository;
     // ランダム値生成用
 private final Random random = new Random();
 
-public IndexController(TodoRepository repository) {
+public IndexController(TodoRepository repository, UserRepository userRepository) {
 this.repository = repository;
+this.userRepository = userRepository;
+
 }
 
 /**
@@ -99,17 +108,36 @@ session.setAttribute(
     "lastSpiDate",
     LocalDate.now());
 
+
+String currentTime = LocalDateTime.now()
+.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+
+model.addAttribute("currentTime", currentTime);
+
 model.addAttribute("notice", notice);
 model.addAttribute("greeting", greeting);
 model.addAttribute("todos", repository.findAll());
 model.addAttribute(
     "userNotice",
     session.getAttribute("notice"));
-model.addAttribute(
-    "username",
-    session.getAttribute("username"));
 
-return "index";
+String username = userRepository
+    .findFirstByOrderByIdAsc()
+    
+    .map(User::getUsername)
+    
+    .orElse("ゲスト");
+    model.addAttribute("username", username);
+
+long incompleteCount = repository.findAll()
+.stream()
+.filter(todo -> !todo.isCompleted())
+.count();
+
+model.addAttribute("incompleteCount", incompleteCount);
+model.addAttribute("studyDays", 35);
+
+    return "index";
 }
 
 @GetMapping("/spi")

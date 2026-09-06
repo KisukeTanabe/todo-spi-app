@@ -8,6 +8,7 @@
 4. Todo一覧表示
 5. 締切間近タスク通知
 -->
+
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -68,7 +69,19 @@ body{
 
 <body>
 
-<h1>ToDo管理・SPI学習アプリ</h1>
+<div class="header">
+
+    <h1>ToDo管理・SPI学習アプリ</h1>
+
+    <div class="user-info" th:if="${username != null}">
+        <span th:text="${username}"></span>さん
+    </div>
+
+    <div class="current-time">
+        📅 [[${currentTime}]]
+    </div>
+
+</div>
 
 <div class="top-area">
     <!-- 左側 -->
@@ -79,9 +92,7 @@ body{
         
         <div class="message-area">
             <span th:text="${greeting}"></span>
-               <h2 th:if="${username != null}">
-                <span th:text="${username}"></span>さん
-            </h2>
+               
             <h3 th:if="${userNotice}">
                 [[${userNotice}]]
             </h3>
@@ -100,7 +111,19 @@ body{
         </div>
         
        </div>
-   
+
+       <div class="dashboard">
+
+<div class="dashboard-card">
+    <h3>📚 学習日数</h3>
+    <p>[[${studyDays}]]日</p>
+</div>
+
+<div class="dashboard-card">
+    <h3>✅ 未完了タスク</h3>
+    <p>[[${incompleteCount}]]件</p>
+</div>
+
 </div>
 
 
@@ -109,49 +132,60 @@ body{
 <!-- 締切が近いTodoを表示 -->
 <div class="notice">
 
-<h3 style="color:red">お知らせ</h3>
+<h3 style="color:red">Todo一覧表示</h3>
 
 
 <!-- Todo一覧表示 -->
-<div th:each="todo : ${todos}" class="todo">
+<table class="todo-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>タスク</th>
+            <th>締切</th>
+        </tr>
+    </thead>
+<tbody>
+    <tr th:each="todo : ${todos}">
+        <td th:text="${todo.id}"></td>
+        <td th:text="${todo.task}"></td>
+        <td th:text="${#temporals.format(todo.deadline,'yyyy/MM/dd HH:mm')}"></td>
+    </tr>
+</tbody>
 
-<b th:text="${todo.task}"></b>
-
-
-<br>
-
-締切：
-
-<span th:text="${#temporals.format(todo.deadline,'yyyy/MM/dd HH:mm')}"></span>
-
-</div>
-
-<div th:if="${notice != ''}"th:utext="${notice}">
-</div>
+</table>
 
 <!-- メニュー -->
 <h4>メニュー</h4>
 
-<div class="menu">
-    <ul>
-        <li>
-            <a href="/spi">
-                /SPI問題
-            </a>
-        </li>
-        <li>
-            <a href="/todo">
-                /ToDo一覧
-            </a>
-        </li>
-        <li>
-            <a href="/setting">
-                /ユーザー設定
-            </a>
-        </a>
-    </li>
-    </ul>
+<div class="menu-container">
+    <a href="/spi">
+    <div class="menu-card">
+        <div class="icon">📘</div>
+    <h3>SPI学習</h3>
+    <p>SPI問題に挑戦</p>
+    </div>
+    </a> 
+
+
+<a href="/todo">
+    <div class="menu-card">
+        <div class="icon">✅</div>
+    <h3>ToDo管理</h3>
+    <p>タスクを確認</p>
+    </div>
+</a> 
+
+
+<a href="/setting">
+    <div class="menu-card">
+        <div class="icon">⚙️</div>
+    <h3>設定</h3>
+    <p>ユーザー情報設定</p>
+    </div>
+</a> 
+
 </div>
+
 
 </body>
 
