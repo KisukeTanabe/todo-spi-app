@@ -1,6 +1,8 @@
 package com.example.demo;
 
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,13 +42,19 @@ public class IndexController {
     private final TodoRepository repository;
 
     private final UserRepository userRepository;
+
+    private final SpiRecordRepository spiRecordRepository;
     // ランダム値生成用
 private final Random random = new Random();
 
-public IndexController(TodoRepository repository, UserRepository userRepository) {
-this.repository = repository;
-this.userRepository = userRepository;
+public IndexController(
+    TodoRepository repository,
+    UserRepository userRepository,
+    SpiRecordRepository spiRecordRepository) {
 
+    this.repository = repository;
+    this.userRepository = userRepository;
+    this.spiRecordRepository = spiRecordRepository;
 }
 
 /**
@@ -121,6 +129,12 @@ model.addAttribute(
     "userNotice",
     session.getAttribute("notice"));
 
+model.addAttribute(
+    "spiCount",
+    session.getAttribute("spiCount")
+);
+
+
 String username = userRepository
     .findFirstByOrderByIdAsc()
     
@@ -135,10 +149,59 @@ long incompleteCount = repository.findAll()
 .count();
 
 model.addAttribute("incompleteCount", incompleteCount);
-model.addAttribute("studyDays", 35);
+
+long totalCount = repository.count();
+
+
+long completedCount = repository.findAll()
+.stream()
+.filter(Todo::isCompleted)
+.count();
+
+int completionRate = 0;
+
+if(totalCount > 0){
+    completionRate =(int)((completedCount * 100) / totalCount);
+}
+
+model.addAttribute("completionRate",completionRate);
+
+LocalDate firstSpiDate =(LocalDate) session.getAttribute("firstSpiDate");
+
+long studyDays = 0;
+
+if (firstSpiDate != null){
+    studyDays =java.time.temporal.ChronoUnit.DAYS.between(firstSpiDate,LocalDate.now()) + 1;
+}
+
+model.addAttribute("studyDays", studyDays);
+
+List<Integer> graphData =
+    new ArrayList<>();
+
+for(int i = 6; i >= 0; i--){
+
+    LocalDate target =
+        LocalDate.now().minusDays(i);
+
+    int count =
+        spiRecordRepository
+            .findByStudyDate(target)
+            .map(SpiRecord::getCount)
+            .orElse(0);
+
+    graphData.add(count);
+}
+
+model.addAttribute(
+    "graphData",
+    graphData);
 
     return "index";
+
 }
+
+
 
 @GetMapping("/spi")
 
@@ -147,7 +210,46 @@ public String showSpi(Model model, HttpSession session) {
     String question = "";
     String answer = "";
     String explanation = "";
+    session.setAttribute("lastSpiDate", LocalDate.now());
+
+    if(session.getAttribute("firstSpiDate") == null){
+        session.setAttribute(
+            "firstSpiDate",
+            LocalDate.now());
+    }
+
+    session.setAttribute(
+        "lastSpiDate",
+        LocalDate.now());
+        
+    Integer spiCount =(Integer) session.getAttribute("spiCount");
+
+    if (spiCount == null){
+        spiCount = 0;
+    }
+
+    spiCount++;
+
+    session.setAttribute("spiCount", spiCount);
     
+    LocalDate today =
+    LocalDate.now();
+
+SpiRecord record =
+    spiRecordRepository
+        .findByStudyDate(today)
+        .orElse(
+            new SpiRecord(today, 0)
+        );
+
+record.setCount(
+    record.getCount() + 1
+);
+
+spiRecordRepository
+    .save(record);
+
+
     switch(type){
 
         // 足し算問題
