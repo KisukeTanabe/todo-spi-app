@@ -2,7 +2,11 @@
 
 ## 概要
 
-Spring Bootで作成したToDo管理・SPI学習アプリです。
+Spring Bootを用いて開発した、ToDo管理とSPI学習を行えるWebアプリケーションです。
+
+就職活動中のタスク管理とSPI対策を効率的に進められるように開発しました。
+
+---
 
 ## 機能
 
@@ -27,7 +31,7 @@ Spring Bootで作成したToDo管理・SPI学習アプリです。
 - 時間帯に応じたメッセージ切り替え
 - 各画面へのナビゲーション
 
-
+---
 
 ## 使用技術
 
@@ -49,41 +53,68 @@ Spring Bootで作成したToDo管理・SPI学習アプリです。
 - Git
 - GitHub
 
+---
 
-# Todo・SPI対策アプリ
+## 工夫した点
+
+- ToDo管理機能とSPI学習機能を1つのアプリに統合
+- 時間帯に応じて応援メッセージを変更し、学習や就職活動のモチベーション向上を実現
+- Thymeleafを利用した動的な画面表示
+- 使いやすさを意識したシンプルなUI設計
+
+---
+
+# 画面イメージ
 
 ## トップ画面
-images/top-page_1_.png
-<img width="1415" height="564" alt="top-page_1_" src="https://github.com/user-attachments/assets/bf2cc4aa-f9e1-4117-939e-42542fcf7e6a" />
 
-images/top-page_2_.png
-<img width="1415" height="564" alt="top-page_2_" src="https://github.com/user-attachments/assets/bf2cc4aa-f9e1-4117-939e-42542fcf7e6a" />
+### トップ画面①
 
-images/top-page_3_.png
-<img width="1415" height="564" alt="top-page_3_" src="https://github.com/user-attachments/assets/bf2cc4aa-f9e1-4117-939e-42542fcf7e6a" />
+![トップ画面1](demo/src/main/resources/staticp-page_1_.png)
+
+### トップ画面②
+
+![トップ画面2](demo/src/main/resources/static/images/top-page_2_.png)
+
+### トップ画面③
+
+![トップ画面3](demo/src/main/resourcesages/top-page_3_.png)
+
+---
 
 ## SPI問題画面
-images/spi-page.png
-<img width="1401" height="867" alt="spi-page" src="https://github.com/user-attachments/assets/637eef44-0d66-4992-a64f-06f3a737c8f9" />
+
+![SPI問題画面](demo/src/main/resources/static/images/spi-page.png)
 
 ## Todo画面
-images/todo-page_1_.png
-<img width="1408" height="692" alt="todo-page_1_" src="https://github.com/user-attachments/assets/04b8debb-88ec-46b0-8ba2-d52fae9aee8f" />
 
+### Todo画面①
 
-images/todo-page_2_.png
-<img width="1435" height="806" alt="todo-page_2_" src="https://github.com/user-attachments/assets/f6da0569-5d1f-4fb9-88c0-87e41696f6ec" />
+![Todo画面1](demo/src/main/resources/static/images/todo-page_1_.png)
 
+### Todo画面②
 
-images/top-page_2_.png
-<img width="1415" height="564" alt="top-page_2_.png" src="https://github.com/user-attachments/assets/bf2cc4aa-f9e1-4117-939e-42542fcf7e6a" />
+![Todo画面2](demo/src/main/resources/static/images/todo-page_2_.png)
+
+### Todo画面③
+
+![Todo画面3](demo/src/main/resources/static/images/top-page_2_.png)
 
 
 
 ## 設定画面
 
-images/setting-page_1_.png
-<img width="1410" height="785" alt="setting-page_1_" src="https://github.com/user-attachments/assets/4330b729-545e-4aed-9d0e-dcc1d0d34ec9" />
+### 設定画面①
 
-images/setting-page_2_.png
-<img width="1410" height="785" alt="setting-page_2_" src="https://github.com/user-attachments/assets/4330b729-545e-4aed-9d0e-dcc1d0d34ec9" />
+![設定画面1](demo/src/main/resources/static/images/setting-page_1_.png)
+
+### 設定画面②
+
+![設定画面2](demo/src/main/resources/static/images/setting-page_2_.png)
+
+---
+
+
+## 作成者
+
+田邊 貴祐
