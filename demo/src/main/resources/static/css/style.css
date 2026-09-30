@@ -311,6 +311,13 @@
 
     box-shadow:0 15px 35px rgba(0,0,0,0.12);
 }
+
+.menu-container a{
+    text-decoration:none;
+    color:inherit;
+    display:block;
+}
+
 /* 登場アニメーション */
 @keyframes floatUp {
     from {
