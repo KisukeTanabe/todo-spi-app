@@ -1,3 +1,0 @@
-<div>
-<img th:src="@{/images/outputresult.png}" width/images/top-page.png:src="@{/imagesg}
-</div>
