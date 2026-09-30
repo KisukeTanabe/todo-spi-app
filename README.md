@@ -54,13 +54,13 @@ Spring Bootで作成したToDo管理・SPI学習アプリです。
 
 ## トップ画面
 images/top-page_1_.png
-<img width="1415" height="564" alt="top-page_1_.png" src="https://github.com/user-attachments/assets/bf2cc4aa-f9e1-4117-939e-42542fcf7e6a" />
+<img width="1415" height="564" alt="top-page_1_" src="https://github.com/user-attachments/assets/bf2cc4aa-f9e1-4117-939e-42542fcf7e6a" />
 
 images/top-page_2_.png
-<img width="1415" height="564" alt="top-page_2_.png" src="https://github.com/user-attachments/assets/bf2cc4aa-f9e1-4117-939e-42542fcf7e6a" />
+<img width="1415" height="564" alt="top-page_2_" src="https://github.com/user-attachments/assets/bf2cc4aa-f9e1-4117-939e-42542fcf7e6a" />
 
 images/top-page_3_.png
-<img width="1415" height="564" alt="top-page_3_.png" src="https://github.com/user-attachments/assets/bf2cc4aa-f9e1-4117-939e-42542fcf7e6a" />
+<img width="1415" height="564" alt="top-page_3_" src="https://github.com/user-attachments/assets/bf2cc4aa-f9e1-4117-939e-42542fcf7e6a" />
 
 ## SPI問題画面
 images/spi-page.png
