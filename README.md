@@ -70,35 +70,35 @@ Spring Bootを用いて開発した、ToDo管理とSPI学習を行えるWebア�
 
 ### トップ画面①
 
-![トップ画面1](demo/src/main/resources/staticp-page_1_.png)
+![トップ画面1](./demo/src/main/resources/staticp-page_1_.png)
 
 ### トップ画面②
 
-![トップ画面2](demo/src/main/resources/static/images/top-page_2_.png)
+![トップ画面2](./demo/src/main/resources/static/images/top-page_2_.png)
 
 ### トップ画面③
 
-![トップ画面3](demo/src/main/resourcesages/top-page_3_.png)
+![トップ画面3](./demo/src/main/resourcesages/top-page_3_.png)
 
 ---
 
 ## SPI問題画面
 
-![SPI問題画面](demo/src/main/resources/static/images/spi-page.png)
+![SPI問題画面](./demo/src/main/resources/static/images/spi-page.png)
 
 ## Todo画面
 
 ### Todo画面①
 
-![Todo画面1](demo/src/main/resources/static/images/todo-page_1_.png)
+![Todo画面1](./demo/src/main/resources/static/images/todo-page_1_.png)
 
 ### Todo画面②
 
-![Todo画面2](demo/src/main/resources/static/images/todo-page_2_.png)
+![Todo画面2](./demo/src/main/resources/static/images/todo-page_2_.png)
 
 ### Todo画面③
 
-![Todo画面3](demo/src/main/resources/static/images/top-page_2_.png)
+![Todo画面3](./demo/src/main/resources/static/images/top-page_2_.png)
 
 
 
@@ -106,11 +106,11 @@ Spring Bootを用いて開発した、ToDo管理とSPI学習を行えるWebア�
 
 ### 設定画面①
 
-![設定画面1](demo/src/main/resources/static/images/setting-page_1_.png)
+![設定画面1](./demo/src/main/resources/static/images/setting-page_1_.png)
 
 ### 設定画面②
 
-![設定画面2](demo/src/main/resources/static/images/setting-page_2_.png)
+![設定画面2](./demo/src/main/resources/static/images/setting-page_2_.png)
 
 ---
 
